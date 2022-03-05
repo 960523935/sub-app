@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Test from "./pages/test";
+import Test2 from "./pages/test2";
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.onGlobalStateChange((state, prev) => {
+      console.log("子应用", state, prev);
+    }, true);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <Link to="/test">test</Link>
+        <Link to="/test2">test2</Link>
+      </div>
+      <div>
+        <Routes>
+          <Route path="/test" element={<Test />} />
+          <Route path="/test2" element={<Test2 />} />
+        </Routes>
+      </div>
     </div>
   );
 }
